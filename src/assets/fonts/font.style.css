@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'CentraNo';
+    src: url(../fonts/CentraNo1-Light.ttf);
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'CentraNo';
+    src: url(../fonts/CentraNo1-Bold.ttf);
+    font-weight: bold;
+}
