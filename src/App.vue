@@ -46,8 +46,9 @@ const websiteConfig = {
     b
   ]
 }
-const scrollTo = (options?: ScrollToOptions) => {
-  window.scroll(options)
+const page = ref();
+const scrollTo = (part:number) => {
+  page.value.to(part)
 }
 onMounted(() => {
   document.title = websiteConfig.title
@@ -76,7 +77,7 @@ const hrefTarget = (url: string) => {
 
       </n-grid>
     </div>
-    <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false"
+    <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false" ref="page" :mousewheel="true"
       show-arrow>
       <template #arrow="{ prev, next }">
         <div class="custom-arrow">
@@ -112,7 +113,7 @@ const hrefTarget = (url: string) => {
                 </div>
               </div>
 
-              <div class="button" @click="scrollTo({ top: 8888, behavior: 'smooth' })">
+              <div class="button" @click="scrollTo(1)">
                 <a>{{ websiteConfig.banner.buttonName }}</a>
               </div>
 
@@ -243,6 +244,7 @@ body {
   align-items: center;
 }
 
+
 .custom-arrow {
   display: flex;
   position: absolute;
@@ -255,6 +257,7 @@ body {
 .custom-arrow--right {
 
   font-size: 39px;
+  text-shadow: 0 0 3px #0095b9;
 
 }
 
@@ -301,7 +304,7 @@ body {
   padding: 0 30px;
   max-width: 1200px;
   box-sizing: border-box;
-  margin: 20px auto 152px;
+  margin: 0 auto ;
 
   header {
     // background: url('./assets/images/card.svg');
@@ -393,7 +396,7 @@ body {
 }
 
 .part {
-  margin-top: 120px;
+  padding-top: 120px !important;
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -482,14 +485,15 @@ body {
   z-index: 999;
   top: 0;
   align-items: center;
+  
   .title {
-   
     font-size: 80px;
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
    
     img {
-      width: 80px;
+      padding-top: 10px;
+      width: 70px;
     }
   }
 
