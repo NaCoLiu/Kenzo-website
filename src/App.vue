@@ -1,64 +1,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { NGrid, NGi, NNumberAnimation, NCarousel, NImage, NScrollbar, NCarouselItem, NIcon } from 'naive-ui'
-import f from './assets/images/1.png'
-import s from './assets/images/2.png'
-import t from './assets/images/3.png'
-import d from './assets/images/4.png'
-import b from './assets/images/5.png'
-import logo from './assets/k_logo_glow.png'
+
 import './assets/fonts/font.style.css'
 import { IosArrowDown } from '@vicons/ionicons4'
-console.log(
-  `%c Kenzo Website `,
-  'background:#409EFF;color:#fff;font-weight:bold;border-radius:2px;padding:2px;margin-right:1em;',
-  'code by NaCo#0381 '
-);
+import { scrollTo, hrefTarget } from './utils/index'
+import { websiteConfig } from './utils/config'
 
-const websiteConfig = {
-  title: 'Kenzo',
-  logo: logo,
-  navigatorList: [
-    {
-      'name': 'store',
-      'part': 0,
-      url: '',
-      inside: true,
-    },
-    {
-      'name': 'discord',
-      'url': 'https://discord.com',
-      'part': 0,
-      inside: false,
-    }
-  ],
-  banner: {
-    title: "Anti-Aim made the right way.",
-    desc: 'At Kenzo, we aim to create the best possible experience. Our LUAs will help you in every aspect, to guarantee the best gameplay possible.',
-    customersNumber: 1000,
-    missHeadNumber: 10,
-    buttonName: 'Purchase',
-    buttonUrl: 'https://github.com'
-  },
-  swipes: [
-    f,
-    s,
-    t,
-    d,
-    b
-  ]
-}
 const page = ref();
-const scrollTo = (part: number) => {
-  page.value.to(part)
-}
+
 onMounted(() => {
   document.title = websiteConfig.title
 })
 
-const hrefTarget = (url: string) => {
-  window.open(url, '_blank');
-}
 </script>
 
 <template>
@@ -72,7 +26,7 @@ const hrefTarget = (url: string) => {
         <n-gi class="nav">
           <ul>
             <li v-for="(item, key) in websiteConfig.navigatorList" :key="key">
-              <a @click="item.inside ? scrollTo(item.part) : hrefTarget(item.url)"> {{ item.name }}</a>
+              <a @click="item.inside ? scrollTo(page, item.part) : hrefTarget(item.url)"> {{ item.name }}</a>
             </li>
           </ul>
         </n-gi>
@@ -115,7 +69,7 @@ const hrefTarget = (url: string) => {
                 </div>
               </div>
 
-              <div class="button" @click="scrollTo(1)">
+              <div class="button" @click="scrollTo(page, 1)">
                 <a>{{ websiteConfig.banner.buttonName }}</a>
               </div>
 
@@ -140,46 +94,14 @@ const hrefTarget = (url: string) => {
             </div>
           </div>
           <n-grid x-gap="30" cols="1 s:2 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
-            <n-gi class="card-item">
-              <header>Live</header>
+            <n-gi class="card-item" v-for="(i, k) in websiteConfig.shopConfig.first" :key="k">
+              <header>{{ i.name }}</header>
               <ul>
-                <li><span>+</span>Anti-Aim Builder</li>
-                <li><span>+</span>Cloud Config Sytem</li>
-                <li><span>+</span>Slow Updates</li>
-                <li><span class="l">-</span>Anti-Aim Exploits</li>
-                <li><span class="l">-</span>Unreleased Features</li>
-                <li><span class="l">-</span>Roll Resolver</li>
+                <li v-for="(item, key) in i.list" :key="key"><span :class="[{ 'l': !item.state }]">{{
+                  item.state ? '+' : '-'
+                }}</span>{{ item.name }}</li>
               </ul>
-              <div class="bottom" @click="hrefTarget(' https://kenzoluadev.sellix.io/product/6290dead6f802')">Click to
-                Purchase</div>
-            </n-gi>
-            <n-gi class="card-item">
-              <header>Beta</header>
-              <ul>
-                <li><span>+</span> Anti-Aim Builder</li>
-                <li><span>+</span> Anti-Aim Exploits</li>
-                <li><span>+</span> Cloud Config System</li>
-                <li><span>+</span> Fast Updates</li>
-                <li><span class="l">-</span> Unreleased Features</li>
-                <li><span class="l">-</span> Roll Resolver</li>
-              </ul>
-              <div class="bottom" @click="hrefTarget('https://kenzoluadev.sellix.io/product/6290deb091cde')">Click to
-                Purchase
-              </div>
-            </n-gi>
-            <n-gi class="card-item">
-              <header>Alpha</header>
-              <ul>
-                <li><span>+</span> Anti-Aim & Brute Builder</li>
-                <li><span>+</span> Anti-Aim Exploits</li>
-                <li><span>+</span> Cloud Config System</li>
-                <li><span>+</span> Instant Updates</li>
-                <li><span>+</span> Unreleased Features</li>
-                <li><span>+</span> Roll Resolver</li>
-              </ul>
-              <div class="bottom" @click="hrefTarget('https://kenzoluadev.sellix.io/product/62c5aaddb84f2')">Click to
-                Purchase
-              </div>
+              <div class="bottom" @click="hrefTarget(i.ButtonUrl)">{{ i.ButtonName }}</div>
             </n-gi>
           </n-grid>
         </div>
@@ -193,16 +115,14 @@ const hrefTarget = (url: string) => {
           </div>
           <n-grid x-gap="30" cols="1 s:2 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
             <n-gi class="card-item"></n-gi>
-            <n-gi class="card-item">
-              <header>Beta</header>
+            <n-gi class="card-item" v-for="(i, k) in websiteConfig.shopConfig.second" :key="k">
+              <header>{{ i.name }}</header>
               <ul>
-                <li><span>+</span>Anti-Aim & Brute Builder</li>
-                <li><span>+</span>Cloud Config System</li>
-                <li><span>+</span>Fast Updates</li>
-                <li><span>+</span>Unreleased Features</li>
+                <li v-for="(item, key) in i.list" :key="key"><span :class="[{ 'l': !item.state }]">{{
+                  item.state ? '+' : '-'
+                }}</span>{{ item.name }}</li>
               </ul>
-              <div class="bottom" @click="hrefTarget('https://en.neverlose.cc/market/item?id=QVtAFG')">Click to Purchase
-              </div>
+              <div class="bottom" @click="hrefTarget(i.ButtonUrl)">{{ i.ButtonName }}</div>
             </n-gi>
             <n-gi class="card-item"></n-gi>
           </n-grid>
@@ -246,7 +166,7 @@ body {
   align-items: center;
 
   .copyright {
-    color: rgb(142, 125, 182) !important;
+    color: white;
     font-weight: 900;
   }
 }
@@ -353,6 +273,7 @@ body {
     text-align: center;
     text-decoration: none;
     transition: .3s ease-in-out;
+    cursor: pointer;
   }
 
   ul {
@@ -519,7 +440,6 @@ body {
           color: white;
           text-decoration: none;
           text-transform: uppercase;
-          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
           font-size: 25px;
           transition: all .5s;
 
