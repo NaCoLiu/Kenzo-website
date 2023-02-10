@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { NGrid, NGi, NNumberAnimation, NCarousel, NImage, NBackTop, NCarouselItem } from 'naive-ui'
-
-
-
-
+import { NGrid, NGi, NNumberAnimation, NCarousel, NImage, NScrollbar, NCarouselItem, NIcon } from 'naive-ui'
 import f from './assets/images/1.png'
 import s from './assets/images/2.png'
 import t from './assets/images/3.png'
 import d from './assets/images/4.png'
 import b from './assets/images/5.png'
 import logo from './assets/k_logo_glow.png'
-import image from './assets/images/card.svg'
 import './assets/fonts/font.style.css'
+import { IosArrowDown } from '@vicons/ionicons4'
+console.log(
+  `%c Kenzo Website `,
+  'background:#409EFF;color:#fff;font-weight:bold;border-radius:2px;padding:2px;margin-right:1em;',
+  'code by NaCo#0381 '
+);
 
 const websiteConfig = {
   title: 'Kenzo',
@@ -20,11 +21,13 @@ const websiteConfig = {
   navigatorList: [
     {
       'name': 'store',
-      'url': 'https://google.com'
+      'url': window.location.href,
+      target: false,
     },
     {
       'name': 'discord',
-      'url': 'https://discord.com'
+      'url': 'https://discord.com',
+      target: true,
     }
   ],
   banner: {
@@ -49,114 +52,178 @@ const scrollTo = (options?: ScrollToOptions) => {
 onMounted(() => {
   document.title = websiteConfig.title
 })
+
+const hrefTarget = (url: string) => {
+  window.open(url, '_blank');
+}
 </script>
 
 <template>
   <div class="app" ref="windowsRef">
-    <n-grid :cols='1' class="header content">
-      <n-gi class="title">
-        <img :src="websiteConfig.logo" alt="logo">
-      </n-gi>
-      <n-gi class="nav">
-        <ul>
-          <li v-for="(item, key) in websiteConfig.navigatorList" :key="key">
-            <a :href=item.url target="_blank"> {{ item.name }}</a>
-          </li>
-        </ul>
-      </n-gi>
-    </n-grid>
-    <n-grid x-gap="12" cols="1 s:2 m:2 l:2 xl:2" y-gap="50" responsive="screen" class="banner content">
-      <n-gi class="info">
-        <h1>{{ websiteConfig.banner.title }}</h1>
-        <p>{{ websiteConfig.banner.desc }}</p>
-        <div class="number">
-          <div class="item">
-            <h5>Customers</h5>
-            <h3>
-              {{ websiteConfig.banner.customersNumber }}+
-            </h3>
-          </div>
-          <div class="sized"></div>
-          <div class="item">
-            <h5>Missed Heads</h5>
-            <h3>
-              <n-number-animation ref="numberAnimationInstRef" :from="0.0" :to="websiteConfig.banner.missHeadNumber"
-                :active="true" :precision="3" locale="ru-RU" :duration="5000" />
-            </h3>
-          </div>
+    <div class="headerContent">
+      <n-grid :cols='3' x-gap="0" class="header content">
+
+        <n-gi class="title">
+          <img :src="websiteConfig.logo" alt="logo">
+        </n-gi>
+        <n-gi class="nav">
+          <ul>
+            <li v-for="(item, key) in websiteConfig.navigatorList" :key="key">
+              <a :href=item.url :target="item.target ? '_blank' : ''"> {{ item.name }}</a>
+            </li>
+          </ul>
+        </n-gi>
+
+      </n-grid>
+    </div>
+    <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false"
+      show-arrow>
+      <template #arrow="{ prev, next }">
+        <div class="custom-arrow">
+          <button type="button" class="custom-arrow--right" @click="next">
+            <NIcon>
+              <IosArrowDown />
+            </NIcon>
+          </button>
         </div>
+      </template>
+      <n-scrollbar class="part" style="max-height: 100vh">
 
-        <div class="button" @click="scrollTo({ top: 8888, behavior: 'smooth' })">
-          <a>{{ websiteConfig.banner.buttonName }}</a>
+        <div class="banner part">
+          <n-grid x-gap="12" cols="1 s:2 m:2 l:2 xl:2" y-gap="50" responsive="screen" class="content">
+            <n-gi class="info">
+              <h1>{{ websiteConfig.banner.title }}</h1>
+              <p>{{ websiteConfig.banner.desc }}</p>
+              <div class="number">
+                <div class="item">
+                  <h5>Customers</h5>
+                  <h3>
+                    {{ websiteConfig.banner.customersNumber }}+
+                  </h3>
+                </div>
+                <div class="sized"></div>
+                <div class="item">
+                  <h5>Missed Heads</h5>
+                  <h3>
+                    <n-number-animation ref="numberAnimationInstRef" :from="0.0"
+                      :to="websiteConfig.banner.missHeadNumber" :active="true" :precision="3" locale="ru-RU"
+                      :duration="5000" />
+                  </h3>
+                </div>
+              </div>
+
+              <div class="button" @click="scrollTo({ top: 8888, behavior: 'smooth' })">
+                <a>{{ websiteConfig.banner.buttonName }}</a>
+              </div>
+
+            </n-gi>
+            <n-gi class="pic">
+              <n-carousel effect="card" prev-slide-style="transform: translateX(-150%) translateZ(-800px);" show-arrow
+                autoplay next-slide-style="transform: translateX(10%) translateZ(-100px);" :show-dots="false">
+                <n-carousel-item v-for="(item, key) in websiteConfig.swipes" :key="key">
+                  <n-image class="carousel-img" :src="item" object-fit="cover" height="650" />
+                </n-carousel-item>
+              </n-carousel>
+            </n-gi>
+          </n-grid>
         </div>
+      </n-scrollbar>
 
-      </n-gi>
-      <n-gi class="pic">
-        <n-carousel effect="card" prev-slide-style="transform: translateX(-150%) translateZ(-800px);" show-arrow
-          autoplay next-slide-style="transform: translateX(10%) translateZ(-100px);" :show-dots="false">
-          <n-carousel-item v-for="(item, key) in websiteConfig.swipes" :key="key">
-            <n-image class="carousel-img" :src="item" object-fit="cover" height="650" />
-          </n-carousel-item>
-        </n-carousel>
-      </n-gi>
-    </n-grid>
+      <n-scrollbar class="part" style="max-height: 100vh">
+        <div class="part">
+          <div class="version">
+            <div class="skeet">
+              GAME<span>SENSE</span>
+            </div>
+          </div>
+          <n-grid x-gap="30" cols="1 s:2 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
+            <n-gi class="card-item">
+              <header>Live</header>
+              <ul>
+                <li><span>+</span>Anti-Aim Builder</li>
+                <li><span>+</span>Cloud Config Sytem</li>
+                <li><span>+</span>Slow Updates</li>
+                <li><span class="l">-</span>Anti-Aim Exploits</li>
+                <li><span class="l">-</span>Unreleased Features</li>
+                <li><span class="l">-</span>Roll Resolver</li>
+              </ul>
+              <div class="bottom" @click="hrefTarget(' https://kenzoluadev.sellix.io/product/6290dead6f802')">Click to
+                Purchase</div>
+            </n-gi>
+            <n-gi class="card-item">
+              <header>Beta</header>
+              <ul>
+                <li><span>+</span> Anti-Aim Builder</li>
+                <li><span>+</span> Anti-Aim Exploits</li>
+                <li><span>+</span> Cloud Config System</li>
+                <li><span>+</span> Fast Updates</li>
+                <li><span class="l">-</span> Unreleased Features</li>
+                <li><span class="l">-</span> Roll Resolver</li>
+              </ul>
+              <div class="bottom" @click="hrefTarget('https://kenzoluadev.sellix.io/product/6290deb091cde')">Click to
+                Purchase
+              </div>
+            </n-gi>
+            <n-gi class="card-item">
+              <header>Alpha</header>
+              <ul>
+                <li><span>+</span> Anti-Aim & Brute Builder</li>
+                <li><span>+</span> Anti-Aim Exploits</li>
+                <li><span>+</span> Cloud Config System</li>
+                <li><span>+</span> Instant Updates</li>
+                <li><span>+</span> Unreleased Features</li>
+                <li><span>+</span> Roll Resolver</li>
+              </ul>
+              <div class="bottom" @click="hrefTarget('https://kenzoluadev.sellix.io/product/62c5aaddb84f2')">Click to
+                Purchase
+              </div>
+            </n-gi>
+          </n-grid>
+        </div>
+      </n-scrollbar>
+      <n-scrollbar class="part" style="max-height: 100vh">
+        <div class="part">
+          <div class="version">
+            <div class="nl">
+              NEVER<span>LOSE</span>
+            </div>
+          </div>
+          <n-grid x-gap="30" cols="1 s:2 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
+            <n-gi class="card-item"></n-gi>
+            <n-gi class="card-item">
+              <header>Beta</header>
+              <ul>
+                <li><span>+</span>Anti-Aim & Brute Builder</li>
+                <li><span>+</span>Cloud Config System</li>
+                <li><span>+</span>Fast Updates</li>
+                <li><span>+</span>Unreleased Features</li>
+              </ul>
+              <div class="bottom" @click="hrefTarget('https://en.neverlose.cc/market/item?id=QVtAFG')">Click to Purchase
+              </div>
+            </n-gi>
+            <n-gi class="card-item"></n-gi>
+          </n-grid>
 
-    <n-grid x-gap="30" cols="1 s:3 m:3 l:4 xl:4" y-gap="50" responsive="screen" class="card">
-      <n-gi class="card-item">
-        <header>Live</header>
-        <ul>
-          <li><span>+</span>Anti-Aim Builder</li>
-          <li><span>+</span>Cloud Config Sytem</li>
-          <li><span>+</span>Slow Updates</li>
-          <li><span class="l">-</span>Anti-Aim Exploits</li>
-          <li><span class="l">-</span>Unreleased Features</li>
-          <li><span class="l">-</span>Roll Resolver</li>
-        </ul>
-        <div class="bottom">Click to Purchase</div>
-      </n-gi>
-      <n-gi class="card-item">
-        <header>Beta</header>
-        <ul>
-          <li><span>+</span> Anti-Aim builder</li>
-          <li><span>+</span> Anti-Aim Exploits</li>
-          <li><span>+</span> Cloud Config System</li>
-          <li><span>+</span> Fast Updates</li>
-          <li><span class="l">-</span> Unreleased Features</li>
-          <li><span class="l">-</span> Roll Resolver</li>
-        </ul>
-        <div class="bottom">Click to Purchase</div>
-      </n-gi>
-      <n-gi class="card-item">
-        <header>Alpha</header>
-        <ul>
-          <li><span>+</span> Anti-Aim & Brute Builder</li>
-          <li><span>+</span> Cloud Config System</li>
-          <li><span>+</span> Instant Updates</li>
-          <li><span>+</span> Unreleased Features</li>
-          <li><span>+</span> Roll Resolver</li>
-        </ul>
-        <div class="bottom">Click to Purchase</div>
-      </n-gi>
-      <n-gi class="card-item">
-        <header>NeverLose</header>
-        <ul>
-          <li><span>+</span> Anti-Aim</li>
-          <li><span>+</span> Brute Builder</li>
-          <li><span>+</span> Cloud Config System</li>
-          <li><span>+</span> Instant Updates</li>
-          
-        </ul>
-        <div class="bottom">Click to Purchase</div>
-      </n-gi>
-
-    </n-grid>
+        </div>
+      </n-scrollbar>
+    </n-carousel>
     <div class="footer">
-      Kenzo © 2023
+      <div class="copyright">
+        Kenzo © 2023
+      </div>
     </div>
   </div>
+
 </template>
 
 <style scoped lang="scss">
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -165,11 +232,64 @@ onMounted(() => {
 }
 
 .footer {
-  max-width: 1200px;
-  margin: 20px auto;
+
+  width: 100%;
   text-align: center;
   text-shadow: 0 0 3px #191920;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.custom-arrow {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  bottom: 20px;
+  justify-content: center;
+
+}
+
+.custom-arrow--right {
+
+  font-size: 39px;
+
+}
+
+.custom-arrow button {
+  background: none;
+  outline: none;
+  cursor: pointer;
+  border: none;
+}
+
+.version {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+
+  .skeet {
+    font-size: 50px;
+
+    span {
+      color: #95b800;
+    }
+  }
+
+  .nl {
+    font-size: 50px;
+    font-weight: 700;
+
+    span {
+      color: #0095b9;
+    }
+  }
 }
 
 .content {
@@ -181,7 +301,7 @@ onMounted(() => {
   padding: 0 30px;
   max-width: 1200px;
   box-sizing: border-box;
-  margin: 150px auto 152px;
+  margin: 20px auto 152px;
 
   header {
     // background: url('./assets/images/card.svg');
@@ -193,7 +313,7 @@ onMounted(() => {
     // border-bottom: 2px solid #37373e;
     border-radius: 10px;
     color: #fff !important;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     display: block;
     font-size: 30px;
     font-weight: 700;
@@ -272,6 +392,15 @@ onMounted(() => {
   }
 }
 
+.part {
+  margin-top: 120px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
 .banner {
   padding: 10px 35px;
   box-sizing: border-box;
@@ -301,7 +430,7 @@ onMounted(() => {
   .info {
     h1 {
       color: white;
-      font-family: 'Josefin Sans', sans-serif;
+
       font-size: 70px;
     }
 
@@ -342,23 +471,23 @@ onMounted(() => {
   }
 }
 
-.header {
-  padding: 40px 20px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  position: relative;
-  justify-content: center;
-  margin-bottom: 30px;
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto !important;
+  
+}
 
+.header {
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  align-items: center;
   .title {
-    position: absolute;
+   
     font-size: 80px;
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-top: 40px;
-    margin-left: 25px;
-
+   
     img {
       width: 80px;
     }
