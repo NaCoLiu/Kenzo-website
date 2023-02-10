@@ -11,7 +11,9 @@ const page = ref();
 
 onMounted(() => {
   document.title = websiteConfig.title
+  
 })
+
 
 </script>
 
@@ -45,12 +47,12 @@ onMounted(() => {
         </div>
       </template>
       <n-scrollbar class="part" style="max-height: 100vh">
-
-        <div class="banner part">
+        <div class="banner part ">
           <n-grid x-gap="12" cols="1 s:2 m:2 l:2 xl:2" y-gap="50" responsive="screen" class="content">
             <n-gi class="info">
               <h1>{{ websiteConfig.banner.title }}</h1>
               <p>{{ websiteConfig.banner.desc }}</p>
+
               <div class="number">
                 <div class="item">
                   <h5>Customers</h5>
