@@ -21,13 +21,15 @@ const websiteConfig = {
   navigatorList: [
     {
       'name': 'store',
-      'url': window.location.href,
-      target: false,
+      'part': 0,
+      url: '',
+      inside: true,
     },
     {
       'name': 'discord',
       'url': 'https://discord.com',
-      target: true,
+      'part': 0,
+      inside: false,
     }
   ],
   banner: {
@@ -47,7 +49,7 @@ const websiteConfig = {
   ]
 }
 const page = ref();
-const scrollTo = (part:number) => {
+const scrollTo = (part: number) => {
   page.value.to(part)
 }
 onMounted(() => {
@@ -70,15 +72,15 @@ const hrefTarget = (url: string) => {
         <n-gi class="nav">
           <ul>
             <li v-for="(item, key) in websiteConfig.navigatorList" :key="key">
-              <a :href=item.url :target="item.target ? '_blank' : ''"> {{ item.name }}</a>
+              <a @click="item.inside ? scrollTo(item.part) : hrefTarget(item.url)"> {{ item.name }}</a>
             </li>
           </ul>
         </n-gi>
 
       </n-grid>
     </div>
-    <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false" ref="page" :mousewheel="true"
-      show-arrow>
+    <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false" ref="page"
+      :mousewheel="true" show-arrow>
       <template #arrow="{ prev, next }">
         <div class="custom-arrow">
           <button type="button" class="custom-arrow--right" @click="next">
@@ -242,6 +244,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .copyright {
+    color: rgb(142, 125, 182) !important;
+    font-weight: 900;
+  }
 }
 
 
@@ -304,7 +311,7 @@ body {
   padding: 0 30px;
   max-width: 1200px;
   box-sizing: border-box;
-  margin: 0 auto ;
+  margin: 0 auto;
 
   header {
     // background: url('./assets/images/card.svg');
@@ -396,7 +403,7 @@ body {
 }
 
 .part {
-  padding-top: 120px !important;
+  padding-top: 150px !important;
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -477,7 +484,7 @@ body {
 .headerContent {
   max-width: 1200px;
   margin: 0 auto !important;
-  
+
 }
 
 .header {
@@ -485,12 +492,12 @@ body {
   z-index: 999;
   top: 0;
   align-items: center;
-  
+
   .title {
     font-size: 80px;
     color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-   
+
     img {
       padding-top: 10px;
       width: 70px;
@@ -508,6 +515,7 @@ body {
         padding: 0 20px;
 
         a {
+          cursor: pointer;
           color: white;
           text-decoration: none;
           text-transform: uppercase;
