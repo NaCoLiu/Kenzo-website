@@ -16,7 +16,7 @@ export const websiteConfig = {
       },
       {
         'name': 'discord',
-        'url': 'discord.gg/kenzolua',
+        'url': 'https://discord.gg/kenzolua',
         'part': 0,
         inside: false,
       }
