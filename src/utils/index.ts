@@ -11,3 +11,4 @@ export const scrollTo = (page:any,part: number) => {
 export const hrefTarget = (url: string) => {
     window.open(url, '_blank');
 }
+

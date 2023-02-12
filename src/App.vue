@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { NGrid, NGi, NNumberAnimation, NCarousel, NImage, NScrollbar, NCarouselItem, NIcon } from 'naive-ui'
 
 import './assets/fonts/font.style.css'
@@ -13,11 +13,10 @@ onMounted(() => {
   document.title = websiteConfig.title
 })
 
-
 </script>
 
 <template>
-  <div class="app" ref="windowsRef">
+  <div class="app" >
     <div class="headerContent">
       <n-grid :cols='3' x-gap="0" class="header content">
         <n-gi class="title">
@@ -351,6 +350,7 @@ body {
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  margin-bottom: 80px;
 }
 
 .banner {
@@ -434,6 +434,7 @@ body {
   z-index: 999;
   top: 0;
   align-items: center;
+
 
   .title {
     font-size: 80px;
