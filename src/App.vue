@@ -98,7 +98,7 @@ onMounted(() => {
             </div>
 
           </div>
-          <n-grid x-gap="30" cols="1 s:2 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
+          <n-grid x-gap="30" cols="1 s:1 m:1 l:3 xl:3" y-gap="50" responsive="screen" class="card">
             <n-gi class="card-item animate__zoomInDown animate__animated" v-for="(i, k) in websiteConfig.shopConfig.first" :key="k">
               <header>{{ i.name }}</header>
               <ul>
@@ -118,7 +118,7 @@ onMounted(() => {
               NEVER<span>LOSE</span>
             </div>
           </div>
-          <n-grid x-gap="30" cols="1 s:2 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
+          <n-grid x-gap="30" cols="1 s:1 m:1 l:3 xl:3" y-gap="50" responsive="screen" class="card">
             <n-gi class="card-item"></n-gi>
             <n-gi class="card-item animate__zoomInDown animate__animated" v-for="(i, k) in websiteConfig.shopConfig.second" :key="k">
               <header>{{ i.name }}</header>
