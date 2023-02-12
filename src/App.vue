@@ -49,7 +49,7 @@ onMounted(() => {
       <n-scrollbar class="part" style="max-height: 100vh">
         <div class="banner part ">
           <n-grid x-gap="12" cols="1 s:2 m:2 l:2 xl:2" y-gap="50" responsive="screen" class="content">
-            <n-gi class="info">
+            <n-gi class="info " data-aos="animate__fadeInLeft">
               <h1>{{ websiteConfig.banner.title }}</h1>
               <p>{{ websiteConfig.banner.desc }}</p>
 
@@ -115,7 +115,7 @@ onMounted(() => {
               NEVER<span>LOSE</span>
             </div>
           </div>
-          <n-grid x-gap="30" cols="1 s:2 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
+          <n-grid x-gap="30" cols="1 s:1 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
             <n-gi class="card-item"></n-gi>
             <n-gi class="card-item" v-for="(i, k) in websiteConfig.shopConfig.second" :key="k">
               <header>{{ i.name }}</header>
