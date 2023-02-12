@@ -11,7 +11,6 @@ const page = ref();
 
 onMounted(() => {
   document.title = websiteConfig.title
-  
 })
 
 
@@ -21,7 +20,6 @@ onMounted(() => {
   <div class="app" ref="windowsRef">
     <div class="headerContent">
       <n-grid :cols='3' x-gap="0" class="header content">
-
         <n-gi class="title">
           <img :src="websiteConfig.logo" alt="logo">
         </n-gi>
@@ -36,7 +34,7 @@ onMounted(() => {
       </n-grid>
     </div>
     <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false" ref="page"
-      :mousewheel="true" show-arrow>
+      :mousewheel="true" show-arrow :transition-props="{ name: 'creative' }" effect="custom" class="pageView">
       <template #arrow="{ prev, next }">
         <div class="custom-arrow">
           <button type="button" class="custom-arrow--right" @click="next">
@@ -49,8 +47,10 @@ onMounted(() => {
       <n-scrollbar class="part" style="max-height: 100vh">
         <div class="banner part ">
           <n-grid x-gap="12" cols="1 s:2 m:2 l:2 xl:2" y-gap="50" responsive="screen" class="content">
-            <n-gi class="info">
+            <n-gi class="info animate__animated animate__backInLeft">
+
               <h1>{{ websiteConfig.banner.title }}</h1>
+
               <p>{{ websiteConfig.banner.desc }}</p>
 
               <div class="number">
@@ -76,7 +76,7 @@ onMounted(() => {
               </div>
 
             </n-gi>
-            <n-gi class="pic">
+            <n-gi class="pic animate__animated animate__backInRight">
               <n-carousel effect="card" prev-slide-style="transform: translateX(-150%) translateZ(-800px);" show-arrow
                 autoplay next-slide-style="transform: translateX(10%) translateZ(-100px);" :show-dots="false">
                 <n-carousel-item v-for="(item, key) in websiteConfig.swipes" :key="key">
@@ -91,12 +91,15 @@ onMounted(() => {
       <n-scrollbar class="part" style="max-height: 100vh">
         <div class="part">
           <div class="version">
-            <div class="skeet">
+            <div class="skeet animate__slideInUp animate__animated">
+
               GAME<span>SENSE</span>
+
             </div>
+
           </div>
           <n-grid x-gap="30" cols="1 s:2 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
-            <n-gi class="card-item" v-for="(i, k) in websiteConfig.shopConfig.first" :key="k">
+            <n-gi class="card-item animate__zoomInDown animate__animated" v-for="(i, k) in websiteConfig.shopConfig.first" :key="k">
               <header>{{ i.name }}</header>
               <ul>
                 <li v-for="(item, key) in i.list" :key="key"><span :class="[{ 'l': !item.state }]">{{
@@ -110,14 +113,14 @@ onMounted(() => {
       </n-scrollbar>
       <n-scrollbar class="part" style="max-height: 100vh">
         <div class="part">
-          <div class="version">
+          <div class="version  animate__slideInUp animate__animated">
             <div class="nl">
               NEVER<span>LOSE</span>
             </div>
           </div>
           <n-grid x-gap="30" cols="1 s:2 m:3 l:3 xl:3" y-gap="50" responsive="screen" class="card">
             <n-gi class="card-item"></n-gi>
-            <n-gi class="card-item" v-for="(i, k) in websiteConfig.shopConfig.second" :key="k">
+            <n-gi class="card-item animate__zoomInDown animate__animated" v-for="(i, k) in websiteConfig.shopConfig.second" :key="k">
               <header>{{ i.name }}</header>
               <ul>
                 <li v-for="(item, key) in i.list" :key="key"><span :class="[{ 'l': !item.state }]">{{
@@ -142,6 +145,22 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
+
+:deep(.creative-enter-from),
+:deep(.creative-leave-to) {
+  opacity: 0;
+  transform: scale(0.8);
+
+  .animate__animated {
+    opacity: 0;
+  }
+}
+
+:deep(.creative-enter-active),
+:deep(.creative-leave-active) {
+  transition: all 0.3s ease;
+}
+
 body {
   display: flex;
   justify-content: center;
