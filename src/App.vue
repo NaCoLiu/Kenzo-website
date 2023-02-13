@@ -33,7 +33,7 @@ onMounted(() => {
       </n-grid>
     </div>
     <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false" ref="page"
-      :mousewheel="false" show-arrow :transition-props="{ name: 'creative' }" effect="custom" class="pageView">
+      :mousewheel="true" show-arrow :transition-props="{ name: 'creative' }" effect="custom" class="pageView">
       <template #arrow="{ prev, next }">
         <div class="custom-arrow">
           <button type="button" class="custom-arrow--right" @click="next">
@@ -350,7 +350,6 @@ body {
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-  margin-bottom: 80px;
 }
 
 .banner {
