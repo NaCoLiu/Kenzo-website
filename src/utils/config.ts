@@ -24,7 +24,7 @@ export const websiteConfig = {
     banner: {
       title: "Anti-Aim made the right way.",
       desc: 'At Kenzo, we aim to create the best possible experience. Our LUAs will help you in every aspect, to guarantee the best gameplay.',
-      customersNumber: 1000,
+      customersNumber: "1,000",
       missHeadNumber: 10,
       buttonName: 'Purchase',
       buttonUrl: 'https://github.com'

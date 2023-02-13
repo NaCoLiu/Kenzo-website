@@ -32,7 +32,7 @@ onMounted(() => {
 
       </n-grid>
     </div>
-    <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false" ref="page"
+    <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false" ref="page" :loop="false"
       :mousewheel="true" show-arrow :transition-props="{ name: 'creative' }" effect="custom" class="pageView">
       <template #arrow="{ prev, next }">
         <div class="custom-arrow">
