@@ -41,6 +41,7 @@ export const websiteConfig = {
             {
                 name:'Live',
                 ButtonName:'Click to Purchase',
+                money:'15',
                 ButtonUrl:'https://kenzoluadev.sellix.io/product/6290dead6f802',
                 list:[
                     {
@@ -72,6 +73,7 @@ export const websiteConfig = {
             {
                 name:'Beta',
                 ButtonName:'Click to Purchase',
+                money:'35',
                 ButtonUrl:'https://kenzoluadev.sellix.io/product/6290deb091cde',
                 list:[
                     {
@@ -103,6 +105,7 @@ export const websiteConfig = {
             {
                 name:'Alpha',
                 ButtonName:'Click to Purchase',
+                money:'55',
                 ButtonUrl:'https://kenzoluadev.sellix.io/product/62c5aaddb84f2',
                 list:[
                     {
@@ -136,6 +139,7 @@ export const websiteConfig = {
             {
                 name:'Beta',
                 ButtonName:'Click to Purchase',
+                money:'3.99',
                 ButtonUrl:'https://en.neverlose.cc/market/item?id=QVtAFG',
                 list:[
                     {

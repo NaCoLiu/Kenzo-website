@@ -16,7 +16,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="app" >
+  <div class="app">
     <div class="headerContent">
       <n-grid :cols='3' x-gap="0" class="header content">
         <n-gi class="title">
@@ -32,8 +32,9 @@ onMounted(() => {
 
       </n-grid>
     </div>
-    <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false" ref="page" :loop="false"
-      :mousewheel="true" show-arrow :transition-props="{ name: 'creative' }" effect="custom" class="pageView">
+    <n-carousel direction="vertical" :show-dots="false" style="width: 100%; height: 100vh" :touchable="false" ref="page"
+      :loop="false" :mousewheel="true" show-arrow :transition-props="{ name: 'creative' }" effect="custom"
+      class="pageView">
       <template #arrow="{ prev, next }">
         <div class="custom-arrow">
           <button type="button" class="custom-arrow--right" @click="next">
@@ -90,7 +91,7 @@ onMounted(() => {
       <n-scrollbar class="part" style="max-height: 100vh">
         <div class="part">
           <div class="version">
-            <div class="skeet animate__slideInUp animate__animated">
+            <div class="skeet animate__shakeY animate__animated">
 
               GAME<span>SENSE</span>
 
@@ -98,35 +99,37 @@ onMounted(() => {
 
           </div>
           <n-grid x-gap="30" cols="1 s:1 m:1 l:3 xl:3" y-gap="50" responsive="screen" class="card">
-            <n-gi class="card-item animate__zoomInDown animate__animated" v-for="(i, k) in websiteConfig.shopConfig.first" :key="k">
+            <n-gi class="card-item animate__zoomInDown animate__animated"
+              v-for="(i, k) in websiteConfig.shopConfig.first" :key="k">
               <header>{{ i.name }}</header>
               <ul>
                 <li v-for="(item, key) in i.list" :key="key"><span :class="[{ 'l': !item.state }]">{{
                   item.state ? '+' : '-'
                 }}</span>{{ item.name }}</li>
               </ul>
-              <div class="bottom" @click="hrefTarget(i.ButtonUrl)">{{ i.ButtonName }}</div>
+              <div class="bottom" @click="hrefTarget(i.ButtonUrl)"><a>£{{ i.money }}</a><a>{{ i.ButtonName }}</a></div>
             </n-gi>
           </n-grid>
         </div>
       </n-scrollbar>
       <n-scrollbar class="part" style="max-height: 100vh">
         <div class="part">
-          <div class="version  animate__slideInUp animate__animated">
+          <div class="version  animate__shakeY animate__animated">
             <div class="nl">
               NEVER<span>LOSE</span>
             </div>
           </div>
           <n-grid x-gap="30" cols="1 s:1 m:1 l:3 xl:3" y-gap="50" responsive="screen" class="card">
             <n-gi class="card-item"></n-gi>
-            <n-gi class="card-item animate__zoomInDown animate__animated" v-for="(i, k) in websiteConfig.shopConfig.second" :key="k">
+            <n-gi class="card-item animate__zoomInDown animate__animated"
+              v-for="(i, k) in websiteConfig.shopConfig.second" :key="k">
               <header>{{ i.name }}</header>
               <ul>
                 <li v-for="(item, key) in i.list" :key="key"><span :class="[{ 'l': !item.state }]">{{
                   item.state ? '+' : '-'
                 }}</span>{{ item.name }}</li>
               </ul>
-              <div class="bottom" @click="hrefTarget(i.ButtonUrl)">{{ i.ButtonName }}</div>
+              <div class="bottom" @click="hrefTarget(i.ButtonUrl)"><a>£{{ i.money }}</a><a>{{ i.ButtonName }}</a></div>
             </n-gi>
             <n-gi class="card-item"></n-gi>
           </n-grid>
@@ -144,7 +147,6 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-
 :deep(.creative-enter-from),
 :deep(.creative-leave-to) {
   opacity: 0;
@@ -276,24 +278,37 @@ body {
   }
 
   .bottom {
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-top: 30px;
-    color: #fff;
-    display: block;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    background-color: #585883d2;
-    line-height: 1;
-    padding: 20px;
-    // box-shadow: 0 0 12px 3px #1b1b42d2;
-    border-radius: 10px;
-    text-align: center;
-    text-decoration: none;
-    transition: .3s ease-in-out;
-    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+
+    a {
+      padding: 20px;
+
+      &:last-child {
+        flex: 50%;
+        margin-left: 10px;
+      }
+
+      flex:1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-size: cover;
+      margin-top: 30px;
+      color: #fff;
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .8px;
+      background-color: #585883d2;
+      line-height: 1;
+      // box-shadow: 0 0 12px 3px #1b1b42d2;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      transition: .3s ease-in-out;
+      cursor: pointer;
+    }
   }
 
   ul {
